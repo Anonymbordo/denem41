@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>🎂 İyi Ki Doğdun! • Maya Ramaşkam</title>
+  <style>
+    :root{--bg:#0f0f14;--pink:#ff8fb1;--pink-dark:#ff6f9a;--cream:#ffe5ec;--flame:#ffb703;--tiltX:0deg;--tiltY:0deg;--gap:clamp(16px,3vh,28px)}
+    *{box-sizing:border-box}
+    body{
+      margin:0;min-height:100dvh;display:flex;flex-direction:column;align-items:center;
+      gap:var(--gap);padding:clamp(18px,3vh,28px) 12px 56px;
+      background:linear-gradient(135deg,#0f0f14,#1a0f1f);
+      overflow-x:hidden; /* dikey scroll açık */
+      perspective:1200px;font-family:'Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent
+    }
+    .header{z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+    .title{display:flex;align-items:center;gap:.8rem;font-weight:800;color:#fff;font-size:clamp(1.6rem,5.2vw,2.6rem);text-shadow:0 2px 8px rgba(0,0,0,.5),0 0 20px rgba(255,143,177,.6);margin:0}
+    .title .heart{animation:pulse 1.2s infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+    .subtitle{color:#ffd8e4;font-weight:600;font-size:clamp(.95rem,2.4vw,1.1rem);line-height:1.35;max-width:min(92vw,920px);text-wrap:balance;opacity:.95;text-shadow:0 0 10px rgba(255,143,177,.35),0 0 22px rgba(255,143,177,.2);margin:0}
+
+    .stage{z-index:1}
+    .cake-tilt{transform:rotateY(var(--tiltY)) rotateX(var(--tiltX));transform-style:preserve-3d;transition:transform .15s ease-out;transform-origin:50% 80%}
+    .cake{position:relative;width:min(62vw,360px);aspect-ratio:1/0.9;animation:float 3.2s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+    .tier{position:absolute;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--pink),var(--pink-dark));border-radius:18px;box-shadow:inset 0 -8px 0 var(--pink-dark),0 4px 16px rgba(255,143,177,.3)}
+    .tier:before{content:"";position:absolute;inset:8px;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 50%);border-radius:14px}
+    .tier.top{bottom:42%;width:56%;height:20%}.tier.mid{bottom:25%;width:78%;height:22%}.tier.bot{bottom:8%;width:100%;height:24%}
+    .icing{position:absolute;left:0;right:0;top:-14px;height:20px;background:linear-gradient(180deg,#fff,var(--cream));border-radius:14px 14px 8px 8px}
+    .drip{position:absolute;top:10px;width:18px;height:26px;background:linear-gradient(180deg,var(--cream),#ffd4e5);border-radius:10px}
+    .drip.d1{left:14%}.drip.d2{left:32%;height:30px}.drip.d3{left:52%}.drip.d4{left:72%;height:28px}
+    .tier.top .candles{position:absolute;left:50%;bottom:calc(100% - 4px);transform:translateX(-50%);width:105%;height:28px;z-index:5}
+    .candle{position:absolute;bottom:0;width:10px;height:28px;background:linear-gradient(180deg,#fff,#ffd1d1);border-radius:4px;box-shadow:inset 0 -10px 0 #ffb3c1,inset 2px 0 3px rgba(255,255,255,.5)}
+    .c1{left:2%}.c2{left:24%}.c3{left:50%;transform:translateX(-50%)}.c4{right:24%}.c5{right:2%}
+    .flame{position:absolute;left:50%;top:-14px;transform:translateX(-50%);width:10px;height:14px;transition:opacity .2s ease;}
+    .flame.off{opacity:0;filter:none;}
+    .flame:before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:10px;height:14px;background:radial-gradient(circle at 50% 65%,#fff 0%,#ffd166 20%,var(--flame) 60%,#ff6b35 85%,transparent 95%);border-radius:50%/60%;filter:blur(.3px);animation:flicker .12s infinite alternate;box-shadow:0 0 12px #ffb703,0 0 24px rgba(255,183,3,.4)}
+    @keyframes flicker{from{transform:translate(-50%,1px) scale(.92);opacity:.88}to{transform:translate(-50%,-1px) scale(1.08);opacity:1}}
+    .tier.top .glow{position:absolute;left:50%;bottom:calc(100% - 6px);transform:translateX(-50%);width:110%;height:36px;filter:blur(20px);background:radial-gradient(ellipse at center,rgba(255,220,120,.4),rgba(255,183,3,.2) 50%,transparent);pointer-events:none;animation:glowPulse 2s ease-in-out infinite}
+    @keyframes glowPulse{0%,100%{opacity:.8}50%{opacity:1}}
+
+    .kiss{font-size:clamp(2rem,6vw,3.5rem);animation:kiss 1.8s ease-in-out infinite}
+    @keyframes kiss{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.1)}}
+
+    .player{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+    .play-btn{width:72px;height:72px;border:none;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ff9ec0,#ff6f9a 65%,#d94c7c);box-shadow:0 6px 18px rgba(255,110,155,.45),inset 0 4px 8px rgba(255,255,255,.35);cursor:pointer;color:#fff;display:grid;place-items:center;transition:transform .08s ease,box-shadow .2s ease}
+    .play-btn:active{transform:scale(.96)} .play-btn.on{box-shadow:0 0 20px rgba(255,143,177,.7),0 10px 26px rgba(255,110,155,.5),inset 0 4px 8px rgba(255,255,255,.35)}
+    .play-icon{font-size:34px;line-height:1;text-shadow:0 0 12px rgba(255,255,255,.6)}
+    .player small{color:#ffd8e4;opacity:.9}
+
+    .floating-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+    .heart-float{position:absolute;width:16px;height:16px;background:#ff4d6d;transform:rotate(45deg);opacity:.85;animation:floatUp linear forwards;filter:drop-shadow(0 0 4px rgba(255,77,109,.6))}
+    .heart-float:before,.heart-float:after{content:"";position:absolute;width:16px;height:16px;background:#ff4d6d;border-radius:50%}
+    .heart-float:before{left:-8px}.heart-float:after{top:-8px}
+    @keyframes floatUp{from{transform:translateY(0) rotate(45deg)}to{transform:translateY(-120vh) rotate(45deg);opacity:0}}
+
+    /* --- DUMAN efekti --- */
+    .smoke{position:absolute;left:50%;bottom:100%;width:8px;height:8px;transform:translateX(-50%) translateY(0) scale(.8);background:radial-gradient(circle at 40% 40%, rgba(255,255,255,.8) 0%, rgba(200,200,200,.7) 30%, rgba(160,160,160,.35) 60%, rgba(160,160,160,0) 100%);border-radius:50%;opacity:.9;filter:blur(.5px);pointer-events:none;animation:smokeUp 1.2s ease-out forwards;will-change:transform,opacity}
+    @keyframes smokeUp{to{transform:translateX(-50%) translateY(-46px) scale(1.6);opacity:0;filter:blur(2px)}}
+
+    /* --- METİNLER: Altta + animasyonlu yazım --- */
+    .verses-wrap{width:min(92vw,920px);margin-top:8px;padding:8px 4px 0;z-index:2}
+    .verses{position:relative;text-align:center;line-height:1.45}
+    .verses .line{
+      position:relative;display:block;margin:.35rem 0;
+      color:#ffeaf2;font-weight:700;font-size:clamp(1rem,2.8vw,1.3rem);
+      text-shadow:0 2px 10px rgba(255,143,177,.35);
+      opacity:0;transform:translateY(8px) scale(.98);filter:brightness(.9);
+      transition:opacity .45s ease,transform .45s ease,filter .45s ease;
+      white-space: pre-wrap; /* BOŞLUKLARI KORU */
+    }
+    .verses .line.show{opacity:1;transform:translateY(0) scale(1);filter:brightness(1)}
+    .verses .char{display:inline-block;opacity:0;transform:translateY(6px)}
+    .verses .char.on{opacity:1;transform:translateY(0);transition:opacity .18s ease, transform .18s ease}
+
+    /* yanıp-sönen imleç */
+    .cursor{display:inline-block;width:.66ch;border-right:2px solid #ffd8e4;animation:blink 1s steps(1) infinite}
+    @keyframes blink{50%{border-color:transparent}}
+
+    /* hareketsiz tercih edenler için animasyonları azalt */
+    @media (prefers-reduced-motion: reduce){
+      .title .heart,.cake,.heart-float,.kiss,.flame:before{animation:none!important}
+      .verses .char{transition:none!important;transform:none!important;opacity:1!important}
+      .cursor{display:none}
+    }
+
+    .spacer{height:16vh}
+  </style>
+</head>
+<body>
+  <div class="floating-hearts" id="hearts"></div>
+
+  <div class="header">
+    <h1 class="title"><span class="heart">❤️</span> İyi Ki Doğdun! <span class="heart">❤️</span></h1>
+    <p class="subtitle">Maya Ramaşkam • Bir tanem • Her şeyim • Kutup Yıldızım • Ömür üstü Sohbetim</p>
+  </div>
+
+  <div class="stage">
+    <div class="cake-tilt">
+      <div class="cake">
+        <div class="tier bot"><div class="icing"></div><div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div></div>
+        <div class="tier mid"><div class="icing"></div><div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div><div class="drip d4"></div></div>
+        <div class="tier top">
+          <div class="icing"></div><div class="drip d1"></div><div class="drip d3"></div>
+          <div class="candles">
+            <div class="candle c1"><div class="flame"></div></div>
+            <div class="candle c2"><div class="flame"></div></div>
+            <div class="candle c3"><div class="flame"></div></div>
+            <div class="candle c4"><div class="flame"></div></div>
+            <div class="candle c5"><div class="flame"></div></div>
+          </div>
+          <div class="glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kiss">😘</div>
+
+  <div class="player">
+    <button id="playBtn" class="play-btn" aria-label="Şarkıyı çal/durdur"><span id="playIcon" class="play-icon">▶</span></button>
+    <small>Şarkıyı çal</small>
+    <audio id="song" preload="auto" playsinline>
+      <source src="WhatsApp-Ptt-2025-11-07-at-22.01.12-_1_.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- METİNLER (ALTA) -->
+  <section class="verses-wrap">
+    <section class="verses" id="verses" aria-live="polite"></section>
+  </section>
+
+  <div class="spacer"></div>
+
+  <script>
+    // ==== 3D tilt ====
+    const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+    const root=document.documentElement;
+    document.addEventListener('mousemove',(e)=>{
+      const rx=((e.clientY/window.innerHeight)-0.5)*16;
+      const ry=((e.clientX/window.innerWidth)-0.5)*-16;
+      root.style.setProperty('--tiltX',clamp(-rx,-8,8)+'deg');
+      root.style.setProperty('--tiltY',clamp(ry,-8,8)+'deg');
+    });
+
+    // ==== Yüzen kalpler ====
+    const hearts=document.getElementById('hearts');
+    function spawnHeart(){
+      const h=document.createElement('div');
+      h.className='heart-float';
+      h.style.left=(Math.random()*100)+'vw';
+      h.style.bottom='-20px';
+      h.style.animationDuration=(6+Math.random()*5)+'s';
+      h.style.opacity=0.6+Math.random()*0.4;
+      hearts.appendChild(h);
+      setTimeout(()=>h.remove(),12000)
+    }
+    setInterval(spawnHeart,700); for(let i=0;i<12;i++) setTimeout(spawnHeart,i*150);
+
+    // ==== Müzik butonu ====
+    const audio=document.getElementById('song');
+    const playBtn=document.getElementById('playBtn');
+    const playIcon=document.getElementById('playIcon');
+    audio.volume=1.0;
+    function updateIcon(){ if(audio.paused){playIcon.textContent='▶';playBtn.classList.remove('on');} else {playIcon.textContent='⏸';playBtn.classList.add('on');}}
+    playBtn.addEventListener('click',()=>{ if(audio.paused){audio.play();} else {audio.pause();}});
+    audio.addEventListener('play',updateIcon); audio.addEventListener('pause',updateIcon);
+    audio.addEventListener('ended',()=>{audio.currentTime=0;audio.pause();});
+
+    // ===== Mum & duman =====
+    const candlesWrap = document.querySelector('.tier.top .candles');
+    const candles = [...document.querySelectorAll('.tier.top .candles .candle')];
+    const flames  = [...document.querySelectorAll('.tier.top .candles .flame')];
+    let smokeTimer=null;
+    function puffSmokeAt(candle){
+      const puffs = 2 + Math.floor(Math.random()*2);
+      for(let i=0;i<puffs;i++){
+        const s=document.createElement('div'); s.className='smoke';
+        const jitter=(Math.random()*16-8); const delay=(Math.random()*120); const scale=0.8+Math.random()*0.6;
+        s.style.left=`calc(50% + ${jitter}px)`; s.style.animationDuration=`${1+Math.random()*0.6}s`;
+        s.style.transform=`translateX(-50%) translateY(0) scale(${scale})`; s.style.animationDelay=`${delay}ms`;
+        candle.appendChild(s); s.addEventListener('animationend',()=>s.remove());
+      }
+    }
+    function blowOut(){ flames.forEach(f=>f.classList.add('off')); if(smokeTimer) return; smokeTimer=setInterval(()=>{candles.forEach(puffSmokeAt);},250); }
+    function relight(){ flames.forEach(f=>f.classList.remove('off')); if(smokeTimer){clearInterval(smokeTimer);smokeTimer=null;} }
+    if(candlesWrap){
+      candlesWrap.addEventListener('mouseenter', blowOut);
+      candlesWrap.addEventListener('mouseleave', relight);
+      candlesWrap.addEventListener('touchstart', (e)=>{blowOut();e.preventDefault();}, {passive:false});
+      candlesWrap.addEventListener('touchend', relight);
+    }
+
+    // ==== Yazı Animasyonları (typewriter + fade) ====
+    const VERSES_EL = document.getElementById('verses');
+
+    const RAW_TEXT = `Biriciğim, her şeyim; iyi ki doğdun, iyi ki varsın, iyi ki benimlesin sevgilim.
+Seni her şeyden — ama her şeyden — daha çok seviyorum.
+Sanırım sabaha doğru, 8 Kasım’da; beş ya da sabah altı gibi doğdun, dünyaya gözlerini açtın.
+Ben o zamanlar dünyada olmasam bile; birkaç ay sonra, büyük ihtimalle, Rabbime "O gitti; ben de onun yanına gitmek istiyorum." demişimdir. :)
+Bilmiyorum; sanki ruhum sana bağlı.
+Her neyse… iyi ki hayatımda varsın; seni gerçekten çok seviyorum.
+Boynundaki ben bazen bana Kutup Yıldızı oluyor; yol gösteriyor, beni motive ediyor.
+Bazen de güzelliğin beni benden alıp sarhoş ediyor.
+"Bir Ömür Yetmez"i şimdi daha iyi, daha çok anlayarak dinliyorum ve benimsiyorum: bir ömür yetmez.
+İyi ki doğdun sevgilim; bu kalbim seni unutmaz ki.`;
+
+    function splitIntoLines(text){
+      const lines = text.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+      if(lines.length>1) return lines;
+      return text.split(/(?<=[.!?…])\s+/).map(s=>s.trim()).filter(Boolean);
+    }
+
+    const LINES = splitIntoLines(RAW_TEXT);
+    const TYPE_SPEED = 26; // ms/harf
+    const PUNCT_PAUSE = { ',':120,';':160,':':160,'—':120,'.':300,'!':320,'?':320,'…':360 };
+
+    function createLineEl(){
+      const line = document.createElement('div');
+      line.className = 'line';
+      const textBox = document.createElement('span');
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      line.append(textBox, cursor);
+      VERSES_EL.appendChild(line);
+      return {line, textBox, cursor};
+    }
+
+    function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+
+    // BOŞLUK FİKSİ: boşlukları NBSP olarak yaz
+    async function typeText(target, text){
+      for(let i=0;i<text.length;i++){
+        const ch = text[i];
+        const span = document.createElement('span');
+        span.className='char';
+        span.textContent = (ch === ' ') ? '\u00A0' : ch; // NBSP
+        target.appendChild(span);
+        requestAnimationFrame(()=>{ span.classList.add('on'); });
+        const extra = PUNCT_PAUSE[ch] || 0;
+        await sleep(TYPE_SPEED + extra);
+      }
+    }
+
+    async function playLines(){
+      VERSES_EL.innerHTML = '';
+      for(const text of LINES){
+        const {line, textBox, cursor} = createLineEl();
+        requestAnimationFrame(()=> line.classList.add('show'));
+        await typeText(textBox, text);
+        await sleep(260);
+        cursor.remove();
+        await sleep(340);
+      }
+    }
+
+    // Görünür olunca başlat
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          io.unobserve(e.target);
+          playLines();
+        }
+      });
+    }, {threshold:.25});
+    io.observe(VERSES_EL);
+
+    // Tekrar oynatmak için tıkla
+    VERSES_EL.addEventListener('click', ()=>{
+      playLines();
+      window.scrollBy({top:1, behavior:'instant'});
+    });
+  </script>
+</body>
+</html>
