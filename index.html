@@ -121,8 +121,10 @@
   <div class="player">
     <button id="playBtn" class="play-btn" aria-label="Şarkıyı çal/durdur"><span id="playIcon" class="play-icon">▶</span></button>
     <small>Şarkıyı çal</small>
-    <audio id="song" preload="auto" playsinline crossorigin="anonymous">
-      <source src="./song.mp3" type="audio/mpeg">
+    <audio id="song" preload="metadata" controls style="display:none;">
+      <source src="song.mp3" type="audio/mpeg">
+      <source src="WhatsApp-Ptt-2025-11-07-at-22.01.12-_1_.mp3" type="audio/mpeg">
+      Tarayıcınız ses dosyasını desteklemiyor.
     </audio>
   </div>
 
@@ -163,9 +165,40 @@
     const playBtn=document.getElementById('playBtn');
     const playIcon=document.getElementById('playIcon');
     audio.volume=1.0;
-    function updateIcon(){ if(audio.paused){playIcon.textContent='▶';playBtn.classList.remove('on');} else {playIcon.textContent='⏸';playBtn.classList.add('on');}}
-    playBtn.addEventListener('click',()=>{ if(audio.paused){audio.play();} else {audio.pause();}});
-    audio.addEventListener('play',updateIcon); audio.addEventListener('pause',updateIcon);
+    
+    // Ses dosyası yükleme hatası kontrolü
+    audio.addEventListener('error', function(e) {
+      console.error('Ses dosyası yüklenemedi:', e);
+      playBtn.disabled = false;
+    });
+    
+    audio.addEventListener('loadeddata', function() {
+      console.log('Ses dosyası yüklendi, süre:', audio.duration);
+    });
+    
+    function updateIcon(){ 
+      if(audio.paused){
+        playIcon.textContent='▶';
+        playBtn.classList.remove('on');
+      } else {
+        playIcon.textContent='⏸';
+        playBtn.classList.add('on');
+      }
+    }
+    
+    playBtn.addEventListener('click',()=>{ 
+      if(audio.paused){
+        audio.play().catch(err => {
+          console.error('Oynatma hatası:', err);
+          alert('Ses dosyası çalınamıyor. Lütfen sayfayı yenileyin.');
+        });
+      } else {
+        audio.pause();
+      }
+    });
+    
+    audio.addEventListener('play',updateIcon); 
+    audio.addEventListener('pause',updateIcon);
     audio.addEventListener('ended',()=>{audio.currentTime=0;audio.pause();});
 
     // ===== Mum & duman =====
